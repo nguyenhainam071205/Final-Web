@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng</title>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.7/viewer.min.css">
+    <link rel="stylesheet" href="../assets/client/css/style-1.css">
+    <link rel="stylesheet" href="../assets/client/css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+     <!-- Top-header -->
+     <div class = "top-header">
+        <div class="container">
+            <div class="inner-wrap">
+                <a href="#" class="inner-item">
+                    <i class="fa-solid fa-phone"></i>
+                    0123.456.789
+                </a>
+                <a href="#" class="inner-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    contact@28travel.com
+                </a>
+                <a href="#" class="inner-item">
+                    <i class="fa-solid fa-building"></i>
+                    Số 123, đường ABC, thành phố XYZ
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- End of Top Header -->
+    
+     <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <div class="inner-wrap">
+                <!-- Menu icon -->
+                <div class="inner-menu-bars">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <!-- Logo -->
+                <div class="inner-logo">
+                    <a href="project-1.html">
+                        <img src="../assets/client/images/Logo.svg" alt="28.TRAVEL">
+                    </a>
+                </div>
+                <!-- Menu -->
+                <div class="inner-menu">
+                    <ul>
+                        <li>
+                            <a href="index.html" class = "active"> Trang Chủ</a>
+                        </li>
+                        <li>
+                            <a href="#">Tour Trong Nước</a>
+                            <i class="fa-solid fa-caret-down"></i>
+                            <ul>
+                                <li><a href="#" class="active">Tour Miền Bắc</a></li>
+                                <li><a href="#">Tour Miền Trung</a></li>
+                                <li><a href="#">Tour Miền Nam</a></li>
+                                <li><a href="#">Tour Xuyên Việt</a></li>
+                            </ul>
+                            
+                        </li>
+                        <li>
+                            <a href="#">Tour Nước Ngoài</a>
+                            <i class="fa-solid fa-caret-down"></i>
+                            <ul>
+                                <li><a href="#">Tour Châu Á</a></li>
+                                <li><a href="#">Tour Châu Âu</a></li>
+                                <li><a href="#">Tour Châu Mỹ</a></li>
+                                <li><a href="#">Tour Châu Úc</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Tin Tức</a>
+                        </li>
+                        <li>
+                            <a href="#">Liên Hệ</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Icon -->
+                <div class="inner-cart">
+                    <a href="#">
+                        <img src="../assets/client/images/Cartsvg.svg">
+                        <span>1</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Header -->
+
+    <!-- Cart -->
+    <div class="section-11">
+        <div class="container">
+            <div class="inner-wrap">
+                <div class="inner-top">
+                    <div class="inner-title">Giỏ Hàng</div>
+                    <div class="inner-back">
+                        <a href="#">
+                            Quay lại mua hàng
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="inner-middle-1" id="js-cart-list">
+                </div>
+                <div class="inner-middle-2">
+                    <div class="inner-discount-code">
+                        <form action="" class="inner-coupon" id="coupon-form">
+                            <input type="text" placeholder="Nhập mã" id="coupon-input" name="coupon">
+                            <button for="" class ="inner-button">Dùng Mã</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="inner-bottom">
+                    <div class="inner-price">
+                        <div class="inner-item">
+                            <span>Tổng tiền:</span>
+                            <span id="js-cart-subtotal">0 đ</span>
+                        </div>
+                        <div class="inner-item">
+                            <span>Giảm:</span>
+                            <span id="js-cart-discount">0 đ</span>
+                        </div>
+                        <div class="inner-item">
+                            <span>Thành tiền:</span>
+                            <span class="inner-highlight" id="js-cart-total">0 đ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Cart -->
+
+    <!-- Guest Information -->
+    <div class="section-12">
+        <div class="container">
+            <div class="inner-wrap">
+                <form action="#" id="order-form">
+                    <div class="guest-info">
+                        <div class="inner-title">
+                            Thông Tin Khách Hàng
+                        </div>
+                        <div class="inner-input-groups">
+                            <div class="inner-input">
+                                <input type="text" name="fullName" id="full-name-input" placeholder="Họ và tên">
+                            </div>
+                            <div class="inner-input">
+                                <input type="text" name="phone" id="phone-input" placeholder="Số điện thoại">
+                            </div>
+                            <textarea name="note" id="textarea-input" placeholder="Ghi chú"></textarea>
+                        </div>
+                    </div>
+                    <div class="payment">
+                        <div class="inner-main-title">Chọn phương thức thanh toán</div>
+                        <div class="inner-payment-item">
+                            <div class="inner-item">
+                                <input type="radio", name="method", id="cash" value="cash">
+                                <label for="" class="inner-label">Thanh toán tiền mặt khi đi tour</label>
+                            </div>
+                            <div class="inner-item">
+                                <input type="radio", name="method", id="zalopay" value="zalopay">
+                                <label for="" class="inner-label">Ví ZaloPay</label>
+                            </div>
+                            <div class="inner-item">
+                                <input type="radio", name="method", id="bank" value="bank">
+                                <label for="" class="inner-label">Chuyển khoản ngân hàng</label>
+                            </div>
+                        </div>
+                        <div class="payment-info">
+                            <div class="inner-title">Thông tin chuyển khoản</div>
+                            <div class="inner-detail">
+                                <span>Ngân hàng : Vietcombank</span>
+                                <span>Tên tài khoản: Le Van A</span>
+                                <span>STK: 0123456789</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inner-button">
+                        <button type="submit" id="js-submit-booking">Đặt Tour</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End of  Guest Information -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Subscription -->
+            <div class="inner-subscription">
+                <div class="inner-desc">
+                    Đăng ký ngay để không bỏ lỡ các chương trình của chúng tôi
+                </div>
+                <div class="inner-form">
+                    <form action="#" class="inner-input-form" id="email-form">
+                        <input class="inner-input" type="email" id="email-input" name="email" placeholder="Nhập email của bạn...">
+                        <button class="inner-button">Đăng ký ngay</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Contact -->
+            <div class="inner-contact">
+                <!-- Pages -->
+                <div class="inner-pages"> 
+                    <a href="#">Trang Chủ</a>
+                    <a href="#">Tour Trong Nước</a>
+                    <a href="#">Tour Nước Ngoài</a>
+                    <a href="#">Tin Tức</a>
+                    <a href="#">Liên Hệ</a>
+                </div>
+                <!-- Socials -->
+                <div class="inner-socials">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <!-- More Information -->
+            <div class="inner-more-information">
+                <div class="inner-copyright">
+                    <a href="#">© 2024 28Tech. All rights reserved.</a>
+                </div>
+                <div class="inner-logo">
+                    <a href="#">
+                        <img src="../assets/client/images/Logo.svg" alt="">
+                    </a>
+                </div>
+                <div class="inner-info">
+                    <a href="#">Điều khoản dịch vụ</a>
+                    <a href="#">Chính sách bảo mật</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End of footer -->
+
+    <!-- Social navigateo -->
+    <nav class="social-block">
+        <div class="inner-wrap">
+            <ul class="inner-list">
+                <li class="inner-item">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                </li>
+                <li class="inner-item">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </li>
+                <li class="inner-item">
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                </li>
+                <li class="inner-item">
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- End of Social navigate -->
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.7/viewer.min.js"></script>
+    <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../assets/client/js/utils/format.js"></script>
+    <script src="../assets/client/js/utils/toast.js"></script>
+    <script src="../assets/client/js/utils/auth.js"></script>
+    <script src="../assets/client/js/utils/http.js"></script>
+    <script src="../assets/client/js/utils/cart.js"></script>
+    <script src="../assets/client/js/api/tour.api.js"></script>
+    <script src="../assets/client/js/api/booking.api.js"></script>
+    <script src="../assets/client/js/pages/cart.js"></script>
+    <script src="../assets/client/js/script.js"></script>
+</body>
+</html>

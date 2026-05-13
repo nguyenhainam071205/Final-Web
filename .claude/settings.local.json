@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(c:/xampp/mysql/bin/mysql.exe -u root dbms -e \"SHOW TABLES;\")",
+      "Bash(c:/xampp/mysql/bin/mysql.exe -u root -e \"SHOW DATABASES;\")",
+      "Bash(c:/xampp/mysql/bin/mysql.exe -u root dbms -e \"DESCRIBE \\\\`order\\\\`;\")",
+      "Bash(c:/xampp/mysql/bin/mysql.exe -u root dbms -e \"DESCRIBE bookedtour;\")",
+      "Bash(c:/xampp/mysql/bin/mysql.exe -u root dbms -e \"DESCRIBE user;\")",
+      "Bash(c:/xampp/mysql/bin/mysql.exe -u root dbms -e \"DESCRIBE tour;\")"
+    ]
+  }
+}

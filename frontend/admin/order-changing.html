@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html> 
+  <head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa đơn hàng </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/filepond@^4/dist/filepond.css">
+    <link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css">
+    <link rel="stylesheet" href="../assets/admin/css/style.css">
+    <script src="../assets/admin/js/utils/auth.js"></script>
+    <script src="https://cdn.tiny.cloud/1/agrpqxoo2wswbk2g2mccg4v0g6f6qznx5acbyjnh5o61pi2h/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="../assets/admin/js/tinymce-config.js"></script>
+  </head>
+  <body>
+    <header class="header"> 
+      <div class="inner-logo"><span class="inner-number">28</span><span class="inner-text">Admin </span></div>
+      <div class="inner-wrap"> 
+        <div class="inner-notify"><img src="../assets/admin/images/header-bell.svg"><span>6</span></div>
+        <div class="inner-account">
+          <div class="inner-avt"> <img src="../assets/admin/images/header-avt.png"></div>
+          <div class="inner-text"> 
+            <div class="inner-name">Le Van A</div>
+            <div class="inner-role">Admin</div>
+          </div>
+        </div>
+        <button class="inner-button-menu"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </header>
+    <nav class="sider">
+      <ul class="inner-menu">
+        <li class="inner-item"><a class="active" href="#"><i class="fa-solid fa-gauge-high"></i> Tổng quan  </a></li>
+        <li class="inner-item"> <a href="#"><i class="fa-solid fa-list"></i> Quản lý danh mục </a></li>
+        <li class="inner-item"><a href="#"><i class="fa-solid fa-plane-departure"></i> Quản lý tour  </a></li>
+        <li class="inner-item"> <a href="#"><i class="fa-solid fa-box"></i> Quản lý đơn hàng  </a></li>
+        <li class="inner-item"> <a href="#"><i class="fa-regular fa-user"></i></i> Quản lý người dùng  </a></li>
+        <li class="inner-item"> <a href="#"><i class="fa-solid fa-address-book"></i> Thông tin liên hệ</a></li>
+      </ul>
+      <ul class="inner-menu">
+        <li class="inner-item"> <a href="#"><i class="fa-solid fa-gear"></i> Cài đặt chung</a></li>
+        <li class="inner-item"> <a href="#"><i class="fa-regular fa-user"></i> Thông tin cá nhân </a></li>
+        <li class="inner-item"> <a class="inner-logout" href="#"><i class="fa-solid fa-power-off"></i> Đăng suất</a></li>
+      </ul>
+    </nav>
+    <div class="sider-overlay"></div>
+    <main class="main"> 
+      <div class="box-title" id="js-order-title">Đơn hàng:</div>
+      <div class="section-9">
+        <form action="" id="order-edit-form">
+          <div class="inner-group">
+            <label class="inner-label" for="fullName">Tên khách hàng</label>
+            <input type="text" name="fullName" id="fullName">
+          </div>
+          <div class="inner-group">
+            <label class="inner-label" for="phone">Số điện thoại</label>
+            <input type="text" name="phone" id="phone">
+          </div>
+          <div class="inner-group inner-two-cols">
+            <label class="inner-label" for="notes">Ghi chú</label>
+            <textarea name="notes" id="notes"></textarea>
+          </div>
+          <div class="inner-group">
+            <label class="inner-label" for="paymentMethod">Phương thức thanh toán</label>
+            <select name="paymentMethod" id="paymentMethod">
+              <option value="cash">Trả tiền trực tiếp</option>
+              <option value="zalopay">Ví ZaloPay</option>
+              <option value="bank">Chuyển khoản</option>
+            </select>
+          </div>
+          <div class="inner-group">
+            <label class="inner-label" for="paymentStatus">Trạng thái thanh toán</label>
+            <select name="paymentStatus" id="paymentStatus">
+              <option value="0">Chưa thanh toán</option>
+              <option value="1">Đã thanh toán</option>
+              <option value="2">Hoàn tiền</option>
+            </select>
+          </div>
+          <div class="inner-group">
+            <label class="inner-label" for="createdAt">Ngày đặt</label>
+            <input type="datetime-local" name="createdAt" id="createdAt" readonly>
+          </div>
+          <div class="inner-group">
+            <label class="inner-label" for="status">Trạng thái</label>
+            <select name="status" id="status">
+              <option value="1">Khởi tạo</option>
+              <option value="2">Hoàn thành</option>
+              <option value="0">Tạm dừng</option>
+            </select>
+          </div>
+          <div class="inner-group">
+            <label class="inner-label" for=""> Danh sách tour</label>
+            <div class="inner-item-list" id="js-tour-list"></div>
+          </div>
+          <div class="inner-group">
+            <label class="inner-label" for="">Thanh toán</label>
+            <div class="inner-total" id="js-order-total"></div>
+          </div>
+          <div class="inner-button inner-two-cols">
+            <button>Cập nhật</button>
+          </div>
+        </form>
+        <div class="inner-back"><a href="order-management.html">Quay lại danh sách</a></div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+    <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../assets/admin/js/utils/format.js"></script>
+    <script src="../assets/admin/js/utils/toast.js"></script>
+    <script src="../assets/admin/js/utils/http.js"></script>
+    <script src="../assets/admin/js/api/booking.api.js"></script>
+    <script src="../assets/admin/js/pages/order-changing.js"></script>
+    <script src="../assets/admin/js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" href="../assets/client/css/style-1.css">
+    <link rel="stylesheet" href="../assets/client/css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-card">
+            <div class="login-title">Đăng nhập</div>
+            <div class="login-desc">Nhập email và mật khẩu để đặt tour</div>
+
+            <form id="login-form" autocomplete="on">
+                <div class="login-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="email@example.com" autocomplete="email">
+                </div>
+                <div class="login-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" name="password" autocomplete="current-password">
+                </div>
+                <div class="login-error" id="js-login-error"></div>
+                <button type="submit" class="login-button">Đăng nhập</button>
+                <div class="login-foot">
+                    <a href="index.html">← Quay lại trang chủ</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../assets/client/js/utils/toast.js"></script>
+    <script src="../assets/client/js/utils/auth.js"></script>
+    <script src="../assets/client/js/utils/http.js"></script>
+    <script src="../assets/client/js/api/user.api.js"></script>
+    <script src="../assets/client/js/pages/login.js"></script>
+</body>
+</html>

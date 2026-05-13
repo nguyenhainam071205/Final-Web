@@ -1,0 +1,105 @@
+.login-page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    background: #f5f7fb;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    padding: 40px 32px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.login-card .login-title {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.login-card .login-desc {
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 28px;
+}
+
+.login-card .login-group {
+    margin-bottom: 16px;
+}
+
+.login-card label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.login-card input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.login-card input:focus {
+    outline: none;
+    border-color: #ff9100;
+}
+
+.login-card .login-error {
+    color: #dc2626;
+    margin-bottom: 12px;
+    min-height: 20px;
+}
+
+.login-card .login-button {
+    width: 100%;
+    padding: 12px;
+    background: #ff9100;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.login-card .login-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.login-card .login-foot {
+    text-align: center;
+    margin-top: 16px;
+    color: #6b7280;
+}
+
+#js-toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#js-toast-container .toast {
+    padding: 12px 18px;
+    border-radius: 8px;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-width: 220px;
+}
+
+#js-toast-container .toast-error   { background: #dc2626; }
+#js-toast-container .toast-success { background: #16a34a; }
+#js-toast-container .toast-warning { background: #f59e0b; }
+#js-toast-container .toast-info    { background: #2563eb; }
