@@ -2,10 +2,7 @@
 declare(strict_types=1);
 
 require_once '../../includes/response.php';
-require_once '../../config/constants.php';
 require_once '../../config/db.php';
-require_once '../../includes/auth.php';
-require_once '../../includes/validator.php';
 require_once '../../includes/db_tour.php';
 require_once '../../includes/db_order.php';
 require_once '../../includes/db_booking.php';
@@ -16,34 +13,37 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     json_error('Method not allowed', 405);
 }
 
-require_login();
-$user    = auth_get_current_user();
-$user_id = (int)$user['UserID'];
+$client_name    = trim((string)($_POST['client_name'] ?? ''));
+$client_phone   = trim((string)($_POST['client_phone'] ?? ''));
+$client_note    = isset($_POST['client_note']) ? trim((string)$_POST['client_note']) : null;
+$payment_method = trim((string)($_POST['payment_method'] ?? ''));
+$items_raw      = $_POST['items'] ?? [];
 
-validate_required($_POST, ['payment_method']);
-
-$payment_method = trim((string)$_POST['payment_method']);
-$note           = isset($_POST['note']) ? trim((string)$_POST['note']) : null;
-$items_raw      = $_POST['items'] ?? null;
-
+if ($client_name === '') {
+    json_error('Vui lòng nhập họ tên', 422);
+}
+if ($client_phone === '') {
+    json_error('Vui lòng nhập số điện thoại', 422);
+}
+if (!in_array($payment_method, ['cash', 'bank'], true)) {
+    json_error('Phương thức thanh toán không hợp lệ', 422);
+}
 if (!is_array($items_raw) || count($items_raw) === 0) {
-    json_error('Giỏ hàng trống', 400);
+    json_error('Giỏ hàng trống', 422);
 }
 
 $items = [];
 foreach ($items_raw as $it) {
-    $tour_id  = (int)($it['tour_id']  ?? 0);
-    $quantity = (int)($it['quantity'] ?? 0);
-    if ($tour_id <= 0 || $quantity <= 0) {
-        json_error('Item không hợp lệ', 422);
-    }
-    $items[] = ['tour_id' => $tour_id, 'quantity' => $quantity];
+    $items[] = [
+        'tour_id'  => (int)($it['tour_id']  ?? 0),
+        'quantity' => (int)($it['quantity'] ?? 0),
+    ];
 }
 
 try {
     $pdo->beginTransaction();
 
-    $order_id = order_create($pdo, $payment_method, $note);
+    $order_id = order_create($pdo, $client_name, $client_phone, $client_note, $payment_method);
 
     foreach ($items as $it) {
         $tour = tour_get_by_id($pdo, $it['tour_id']);
@@ -54,7 +54,6 @@ try {
         }
         booking_create(
             $pdo,
-            $user_id,
             (int)$tour['TourID'],
             $order_id,
             $it['quantity'],

@@ -4,14 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giỏ hàng</title>
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.7/viewer.min.css">
     <link rel="stylesheet" href="../assets/client/css/style-1.css">
-    <link rel="stylesheet" href="../assets/client/css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
@@ -89,7 +82,6 @@
                 <div class="inner-cart">
                     <a href="#">
                         <img src="../assets/client/images/Cartsvg.svg">
-                        <span>1</span>
                     </a>
                 </div>
             </div>
@@ -112,23 +104,11 @@
                 </div>
                 <div class="inner-middle-1" id="js-cart-list">
                 </div>
-                <div class="inner-middle-2">
-                    <div class="inner-discount-code">
-                        <form action="" class="inner-coupon" id="coupon-form">
-                            <input type="text" placeholder="Nhập mã" id="coupon-input" name="coupon">
-                            <button for="" class ="inner-button">Dùng Mã</button>
-                        </form>
-                    </div>
-                </div>
                 <div class="inner-bottom">
                     <div class="inner-price">
                         <div class="inner-item">
                             <span>Tổng tiền:</span>
                             <span id="js-cart-subtotal">0 đ</span>
-                        </div>
-                        <div class="inner-item">
-                            <span>Giảm:</span>
-                            <span id="js-cart-discount">0 đ</span>
                         </div>
                         <div class="inner-item">
                             <span>Thành tiền:</span>
@@ -166,10 +146,6 @@
                             <div class="inner-item">
                                 <input type="radio", name="method", id="cash" value="cash">
                                 <label for="" class="inner-label">Thanh toán tiền mặt khi đi tour</label>
-                            </div>
-                            <div class="inner-item">
-                                <input type="radio", name="method", id="zalopay" value="zalopay">
-                                <label for="" class="inner-label">Ví ZaloPay</label>
                             </div>
                             <div class="inner-item">
                                 <input type="radio", name="method", id="bank" value="bank">
@@ -274,8 +250,6 @@
     <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../assets/client/js/utils/format.js"></script>
-    <script src="../assets/client/js/utils/toast.js"></script>
-    <script src="../assets/client/js/utils/auth.js"></script>
     <script src="../assets/client/js/utils/http.js"></script>
     <script src="../assets/client/js/utils/cart.js"></script>
     <script src="../assets/client/js/api/tour.api.js"></script>

@@ -14,9 +14,9 @@ function formatPrice(price) {
 function splitDateTime(raw) {
     if (!raw) return { time: '', date: '' };
     const [datePart, timePart] = String(raw).split(' ');
-    const [year, month, day] = (datePart || '').split('-');
+    const [year, month, day] = datePart.split('-');
     const time = timePart ? timePart.slice(0, 5) : '';
-    return { time, date: day && month && year ? `${day}/${month}/${year}` : '' };
+    return { time, date: `${day}/${month}/${year}`};
 }
 
 const ORDER_STATUS_LABEL = {
@@ -27,12 +27,9 @@ const ORDER_STATUS_LABEL = {
 
 const PAYMENT_METHOD_LABEL = {
     cash: 'Tiền mặt',
-    zalopay: 'Ví ZaloPay',
     bank: 'Chuyển khoản',
 };
 
-const PAID_PAYMENT_METHODS = ['bank', 'zalopay'];
-
 function getPaymentStatusLabel(paymentMethod) {
-    return PAID_PAYMENT_METHODS.includes(paymentMethod) ? 'Đã thanh toán' : 'Chưa thanh toán';
+    return paymentMethod === 'bank' ? 'Đã thanh toán' : 'Chưa thanh toán';
 }

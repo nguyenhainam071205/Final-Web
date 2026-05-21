@@ -175,32 +175,6 @@ img{
     width: auto;
 }
 
-.header .inner-wrap .inner-cart span{
-    display: inline-block;
-    position: relative;
-    background-color: #FF3904;
-    border-radius: 3px;
-    padding: 1px 5px;
-    margin-left: 5px;
-    color: #FFFFFF;
-    font-weight: 400;;
-    font-size: 12px;
-
-}
-
-.header .inner-wrap .inner-cart span::before{
-    content: "";
-    display: inline-block;
-    width: 0; 
-    height: 0; 
-    border-top: 1.9px solid transparent;
-    border-bottom: 1.9px solid transparent; 
-    border-right: 3.8px solid #FF3904;
-    position: absolute;
-    top: 6.2px;
-    left: -3.4px;
-}
-
 .header .inner-wrap .inner-menu-bars{
     display: none;
 }
@@ -1904,23 +1878,6 @@ img{
     height: 100%;
     object-fit: cover;
 }
-
-.box-image .inner-thumb-image{
-    /*display: grid;*/
-    /*grid-template-columns: repeat(4, 1fr);*/
-    /*gap: 9.37px;*/
-}
-
-.box-image .inner-thumb-image .inner-image{
-    aspect-ratio: 168/192;
-}
-
-.box-image .inner-thumb-image .inner-image img{
-    width: 100%;
-    height: 70%;
-    object-fit: cover;
-    border-radius: 5px;
-}
 /* End of Box Images */
 
 /* Box Details */
@@ -2190,83 +2147,6 @@ img{
 }
 /* End of Box Info */
 
-/* Tour Schedule */
-.box-tour-schedule .inner-main-title{
-    font-size: 20px;
-    font-weight: 600;
-    color: #4502C7;
-    margin-bottom: 15px;
-}
-
-.box-tour-schedule .inner-list{
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    position: relative;
-}
-
-.box-tour-schedule .inner-list::before{
-    content: "";
-    width: 1px;
-    height: calc(100% - 16px);
-    background-color: var(--main-color);
-    position: absolute;
-    top: 16px;
-    left: 0;
-    
-}
-
-.box-tour-schedule .inner-item {
-    margin-left: 15px;
-    position: relative;
-}
-
-.box-tour-schedule .inner-item::before {
-    content: "";
-    border: 1px solid var(--main-color);
-    display: block;
-    width: 10px;
-    height: 10px;
-    background-color: var(--main-color);
-    border-radius: 50%;
-    position: absolute;
-    top: 12px;
-    left: -20px;
-}
-
-.box-tour-schedule .inner-list .inner-title{
-    display: inline-flex;
-    padding: 8px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #fff;
-    background-color: var(--main-color);
-    margin-bottom: 10px;
-
-}
-
-.box-tour-schedule .inner-list .inner-content{
-    box-shadow: 0px 1.75px 3.51px 0px #0000001F;
-    padding: 20px;
-    font-size: 14px;
-    font-weight: 300;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.box-tour-schedule .inner-list .inner-content .inner-image{
-    aspect-ratio: 640/394;
-}
-
-.box-tour-schedule .inner-list .inner-content .inner-image img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-/* End of Tour Schedule */
-
 /* Section 10 */
 .section-10{
     padding-top: 60px;
@@ -2376,37 +2256,6 @@ img{
     border-bottom: 1px solid #F2F2F2;
 }
 
-.section-11 .inner-middle-1 .inner-action{
-    width: 21px;
-    margin-right: 6px;
-}
-
-.section-11 .inner-middle-1 .inner-action i{
-    background-color: transparent;
-    padding: 0;
-    border: 0;
-    cursor: pointer;
-    width: 21px;
-    height: 21px;
-    color: #828282;
-    font-size: 14px;
-}
-
-.section-11 .inner-middle-1 .inner-action i::before{
-    content: "\58";
-    padding-left: 4px;
-}
-
-.section-11 .inner-middle-1 .inner-action input{
-    margin: 0;
-    padding: 0;
-    width: 18px;
-    height: 18px;
-    margin-top: 43px;
-    cursor: pointer;
-    accent-color: var(--main-color);
-}
-
 .section-11 .inner-middle-1 .inner-tour-info{
     width: 59%;
     display: flex;
@@ -2491,11 +2340,6 @@ img{
     color: #5D5E60;
 }
 
-.section-11 .inner-middle-1 .inner-quantity .inner-list .inner-item .inner-input{
-    width: 40px;
-    border: 0;
-}
-
 .section-11 .inner-middle-1 .inner-quantity .inner-list .inner-item .inner-number{
     display: flex;
     flex: 1;
@@ -2511,53 +2355,6 @@ img{
 
 .section-11 .inner-middle-1 .inner-quantity .inner-list .inner-item .inner-number .inner-highlight{
     color: var(--main-color);
-}
-
-.section-11 .inner-middle-2{
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 15px;
-}
-
-.section-11 .inner-middle-2 .inner-discount-code{
-    width: 50%;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.section-11 .inner-middle-2 .inner-discount-code form {
-    flex: 1;
-    display: flex;
-    position: relative;
-}
-.section-11 .inner-middle-2 .inner-discount-code input{
-    height: 40px;
-    padding: 10px 12px;
-    border: 1px solid #9EA0A3;
-    border-top-left-radius: 5px;    
-    border-bottom-left-radius: 5px;   
-    border-right: none;
-    outline: none;
-    flex: 1;
-}
-
-.section-11 .inner-middle-2 .inner-discount-code button{
-    border: none;
-    width: 110px;
-    height: 40px;
-    background-color: var(--main-color);
-    font-size: 14px;
-    font-weight: 400;
-    color: #fff;
-    cursor: pointer;
-    margin-left: -5px;
-}
-
-.section-11 .inner-middle-2 .inner-discount-code form .just-validate-error-label{
-    position: absolute;
-    top: 104%;
-    font-size: 12px;
-    color: #ffa1a1 !important;
 }
 
 .section-11 .inner-price{
@@ -2584,7 +2381,7 @@ img{
 }
 
 
-.section-11 .inner-price .inner-item:nth-child(3) .inner-highlight{
+.section-11 .inner-price .inner-item:nth-child(2) .inner-highlight{
     color: var(--main-color);
     font-size: 22px;
     font-weight: 700;
@@ -2599,29 +2396,9 @@ img{
         width: 90%;
     }
 
-    .section-11 .inner-middle-1 .inner-action{
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .section-11 .inner-middle-1 .inner-action i{
-        order: 1;
-    }
-
-    .section-11 .inner-middle-1 .inner-action input{
-        margin-top: 0;
-    }
     .section-11 .inner-middle-1 .inner-quantity .inner-title {
         margin-top: 10px;
         text-align: start;
-    }
-
-    .section-11 .inner-middle-2 .inner-discount-code {
-        width: 50%;
     }
 }
 
@@ -2639,10 +2416,6 @@ img{
     }
     
     .section-11 .inner-middle-1 .inner-tour-info{
-        width: 100%;
-    }
-
-    .section-11 .inner-middle-2 .inner-discount-code {
         width: 100%;
     }
 }

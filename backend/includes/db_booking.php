@@ -1,27 +1,18 @@
 <?php
 declare(strict_types=1);
 
-/**
- * Inserts a single line-item into BookedTour. Snapshots the price at booking time.
- * Caller resolves CostPerPerson via tour_get_by_id() so this helper has no Tour dependency.
- *
- * Composite PK is (UserID, TourID, OrderID); a duplicate within the same order is impossible
- * because OrderID is freshly generated, so no upsert handling is needed.
- */
 function booking_create(
     PDO $pdo,
-    int $user_id,
     int $tour_id,
     int $order_id,
     int $quantity,
     float $price_at_booking
 ): void {
     $stmt = $pdo->prepare(
-        "INSERT INTO bookedtour (UserID, TourID, OrderID, Quantity, PriceAtBooking)
-         VALUES (:user_id, :tour_id, :order_id, :qty, :price)"
+        "INSERT INTO bookedtour (TourID, OrderID, Quantity, PriceAtBooking)
+         VALUES (:tour_id, :order_id, :qty, :price)"
     );
     $stmt->execute([
-        ':user_id'  => $user_id,
         ':tour_id'  => $tour_id,
         ':order_id' => $order_id,
         ':qty'      => $quantity,
@@ -29,9 +20,6 @@ function booking_create(
     ]);
 }
 
-/**
- * Deletes every BookedTour row tied to a specific OrderID.
- */
 function booking_delete_by_order(PDO $pdo, int $order_id): void
 {
     $stmt = $pdo->prepare("DELETE FROM bookedtour WHERE OrderID = :id");
@@ -39,7 +27,7 @@ function booking_delete_by_order(PDO $pdo, int $order_id): void
 }
 
 /**
- * Returns line-item rows for a single OrderID. Used to build ZaloPay's `item` JSON.
+ * Returns line-item rows for a single OrderID.
  *
  * @return array<int, array{TourID:int, Title:string, Quantity:int, PriceAtBooking:float}>
  */

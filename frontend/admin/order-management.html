@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://unpkg.com/filepond@^4/dist/filepond.css">
     <link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css">
     <link rel="stylesheet" href="../assets/admin/css/style.css">
-    <script src="../assets/admin/js/utils/auth.js"></script>
     <script src="https://cdn.tiny.cloud/1/agrpqxoo2wswbk2g2mccg4v0g6f6qznx5acbyjnh5o61pi2h/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="../assets/admin/js/tinymce-config.js"></script>
   </head>
@@ -63,7 +62,6 @@
             <select id="js-filter-payment-method">
               <option value="">Phương thức TT</option>
               <option value="bank">Chuyển khoản</option>
-              <option value="zalopay">Zalopay</option>
               <option value="cash">Trả trực tiếp tại chỗ</option>
             </select>
           </div>
@@ -101,22 +99,19 @@
               </tr>
             </thead>
             <tbody id="js-order-tbody">
-              <tr>
-                <td colspan="6" style="text-align:center; padding:24px;">Đang tải...</td>
-              </tr>
+              
             </tbody>
           </table>
         </div>
       </div>
       <div class="section-7">
-        <div class="inner-label" id="js-page-info">Hiển thị 0 - 0 của 0</div>
+        <div class="inner-label" id="js-page-info"></div>
         <select class="inner-pagination" id="js-page-select"></select>
       </div>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../assets/admin/js/utils/format.js"></script>
-    <script src="../assets/admin/js/utils/toast.js"></script>
     <script src="../assets/admin/js/utils/http.js"></script>
     <script src="../assets/admin/js/api/booking.api.js"></script>
     <script src="../assets/admin/js/components/sider.js"></script>

@@ -35,7 +35,7 @@ project/
 backend/
 ├── api/                    # Entry endpoints — public HTTP
 │   ├── tour/               # get_list.php, get_detail.php
-│   ├── booking/            # create.php, zalopay_create.php, zalopay_callback.php
+│   ├── booking/            # create.php
 │   ├── user/               # login.php
 │   └── admin/              # Endpoint cho admin panel
 ├── config/
@@ -48,8 +48,7 @@ backend/
 │   ├── db_tour.php         # tour_get_list(), tour_get_detail()
 │   ├── db_booking.php      # SQL cho booking
 │   ├── db_order.php        # SQL cho order
-│   ├── db_user.php         # SQL cho user/auth
-│   └── zalopay.php         # Tích hợp ZaloPay
+│   └── db_user.php         # SQL cho user/auth
 └── docs/                   # BE-ARCHITECTURE.md
 ```
 
@@ -69,8 +68,6 @@ backend/
 | `api/tour/get_list.php` | GET | Danh sách tour (lọc theo `category_id`) |
 | `api/tour/get_detail.php` | GET | Chi tiết 1 tour theo `tour_id` |
 | `api/booking/create.php` | POST | Tạo booking |
-| `api/booking/zalopay_create.php` | POST | Khởi tạo thanh toán ZaloPay |
-| `api/booking/zalopay_callback.php` | POST | Callback ZaloPay → cập nhật trạng thái |
 | `api/user/login.php` | POST | Đăng nhập user/admin |
 
 ---
@@ -83,8 +80,7 @@ frontend/
 │   ├── index.html                # Trang chủ — list tour
 │   ├── tour-detail.html          # Chi tiết tour
 │   ├── cart.html                 # Giỏ hàng / booking
-│   ├── login.html                # Đăng nhập user
-│   └── payment-result.html       # Kết quả ZaloPay
+│   └── login.html                # Đăng nhập user
 │
 ├── admin/                        # Trang admin
 │   ├── login.html

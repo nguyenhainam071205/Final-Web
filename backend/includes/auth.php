@@ -10,9 +10,6 @@ function auth_start_session(): void
     }
 }
 
-/**
- * @param array<string, mixed> $user — row from db_user.php with UserID, Email, FullName, role
- */
 function auth_login(array $user): void
 {
     auth_start_session();
@@ -22,13 +19,6 @@ function auth_login(array $user): void
         'FullName' => (string)$user['FullName'],
         'role'     => (string)$user['role'],
     ];
-}
-
-function auth_logout(): void
-{
-    auth_start_session();
-    $_SESSION = [];
-    session_destroy();
 }
 
 function is_logged_in(): bool

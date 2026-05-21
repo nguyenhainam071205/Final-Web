@@ -1,21 +1,14 @@
-// Render layer — returns HTML strings. No DOM access. No API calls.
-//
-// Omissions vs. static HTML:
-//   .inner-discount  — omitted (no discount field in DB)
-//   .inner-old-price — omitted (no original price field in DB)
-//   .inner-stock     — omitted (MaxParticipants ≠ available slots; revisit when BookedTour count is available)
-
 /**
  * Renders a single tour card as a .product-item HTML string.
  * @param {Object} tour — raw tour object from API
  * @returns {string}
  */
 function renderTourCard(tour) {
-    const thumbnail = tour.TourThumbnail || 'assets/images/product-1.jpg';
-    const tourCode  = String(tour.TourID).padStart(9, '0');
-    const price     = formatPrice(tour.CostPerPerson);
-    const date      = formatDate(tour.DepartureDate);
-    const duration  = tour.Duration || '—';
+    const thumbnail = tour.TourThumbnail;
+    const tourCode = String(tour.TourID).padStart(9, '0');
+    const price = formatPrice(tour.CostPerPerson);
+    const date = formatDate(tour.DepartureDate);
+    const duration = tour.Duration;
     const detailUrl = `tour-detail.html?tour_id=${tour.TourID}`;
 
     return `

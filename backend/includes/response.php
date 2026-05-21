@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-function json_success(mixed $data = [], int $code = 200): void
+function json_success(mixed $data, int $code = 200): void
 {
     http_response_code($code);
     header('Content-Type: application/json; charset=utf-8');

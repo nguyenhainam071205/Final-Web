@@ -1,46 +1,40 @@
-
-
 (function () {
-    function escapeHtml(s) {
-        return $('<div>').text(s == null ? '' : String(s)).html();
-    }
-
     function renderOrderCode(orderId) {
         return 'OD' + String(orderId).padStart(6, '0');
     }
 
     function renderTourItem(t) {
-        const thumb = t.TourThumbnail || '../assets/admin/images/section-3-picture.png';
+        const thumb = t.TourThumbnail;
         return `
             <div class="inner-item">
                 <div class="inner-image"><img src="${thumb}"></div>
                 <div class="inner-content">
-                    <div class="inner-name">${escapeHtml(t.Title)}</div>
+                    <div class="inner-name">${t.Title}</div>
                     <div class="inner-quantity">Người lớn: ${t.Quantity} x ${formatPrice(t.PriceAtBooking)}đ</div>
                 </div>
             </div>`;
     }
 
     function renderRow(order) {
-        const status = ORDER_STATUS_LABEL[order.OrderStatus] || ORDER_STATUS_LABEL[1];
-        const pm = PAYMENT_METHOD_LABEL[order.PaymentMethod] || order.PaymentMethod || '—';
+        const status = ORDER_STATUS_LABEL[order.OrderStatus];
+        const pm = PAYMENT_METHOD_LABEL[order.PaymentMethod];
         const paymentStatus = getPaymentStatusLabel(order.PaymentMethod);
         const dt = splitDateTime(order.OrderDate);
-        const tours = (order.tours || []).map(renderTourItem).join('');
-        const note = order.Note ? `<div>Ghi chú: ${escapeHtml(order.Note)}</div>` : '';
+        const tours = order.tours.map(renderTourItem).join('');
+        const note = order.ClientNote ? `<div>Ghi chú: ${order.ClientNote}</div>` : '';
 
         return `
             <tr>
                 <td><div class="inner-code">${renderOrderCode(order.OrderID)}</div></td>
                 <td>
-                    <div>Họ tên: ${escapeHtml(order.FullName)}</div>
-                    <div>SĐT: ${escapeHtml(order.PhoneNumber || '—')}</div>
+                    <div>Họ tên: ${order.ClientName || '—'}</div>
+                    <div>SĐT: ${order.ClientPhone || '—'}</div>
                     ${note}
                 </td>
                 <td><div class="inner-list">${tours}</div></td>
                 <td>
                     <div>Tổng tiền: ${formatPrice(order.TotalPrice)}đ</div>
-                    <div>PTTT: ${escapeHtml(pm)}</div>
+                    <div>PTTT: ${pm}</div>
                     <div>TTTT: ${paymentStatus}</div>
                 </td>
                 <td><div class="badge ${status.cls}">${status.text}</div></td>
@@ -66,12 +60,6 @@
     }
 
     const PAGE_SIZE = 3;
-    const STATUS_PARAM = 'order-status';
-    const PAYMENT_STATUS_PARAM = 'payment-status';
-    const PAYMENT_METHOD_PARAM = 'payment-method';
-    const START_DATE_PARAM = 'start-date';
-    const END_DATE_PARAM = 'end-date';
-    const KEYWORD_PARAM = 'keyword';
     let allOrders = [];
     let currentPage = 1;
 
@@ -85,15 +73,15 @@
     }
 
     function applyKeywordFilter(orders) {
-        const term = getParamFromUrl(KEYWORD_PARAM);
+        const term = getParamFromUrl('keyword');
         if (term === null) return orders;
         const q = slugify(term);
         if (q === '') return orders;
         return orders.filter(o => {
             const haystack = [
                 renderOrderCode(o.OrderID),
-                o.FullName,
-                o.PhoneNumber,
+                o.ClientName,
+                o.ClientPhone,
             ].map(slugify).join(' ');
             return haystack.includes(q);
         });
@@ -124,9 +112,8 @@
     function applyIntFieldFilter(orders, paramName, field) {
         const filter = getParamFromUrl(paramName);
         if (filter === null) return orders;
-        const wanted = parseInt(filter, 10);
-        if (!Number.isFinite(wanted)) return orders;
-        return orders.filter(o => Number(o[field]) === wanted);
+        const wanted = parseInt(filter);
+        return orders.filter(o => o[field] === wanted);
     }
 
     function applyStringFieldFilter(orders, paramName, field) {
@@ -136,11 +123,11 @@
     }
 
     function applyDateRangeFilter(orders, field) {
-        const start = getParamFromUrl(START_DATE_PARAM);
-        const end   = getParamFromUrl(END_DATE_PARAM);
+        const start = getParamFromUrl('start-date');
+        const end   = getParamFromUrl('end-date');
         if (!start && !end) return orders;
         return orders.filter(o => {
-            const datePart = String(o[field] || '').split(' ')[0];
+            const datePart = String(o[field]).split(' ')[0];
             if (!datePart) return false;
             if (start && datePart < start) return false;
             if (end && datePart > end) return false;
@@ -149,7 +136,7 @@
     }
 
     function totalPages() {
-        return Math.max(1, Math.ceil(allOrders.length / PAGE_SIZE));
+        return Math.ceil(allOrders.length / PAGE_SIZE);
     }
 
     function renderPage(page) {
@@ -160,17 +147,17 @@
             return;
         }
         const pages = totalPages();
-        currentPage = Math.min(Math.max(1, page), pages);
+        currentPage = page;
 
         const start = (currentPage - 1) * PAGE_SIZE;
-        const end   = Math.min(start + PAGE_SIZE, allOrders.length);
+        const end   = start + PAGE_SIZE;
         const slice = allOrders.slice(start, end);
         $tbody.html(slice.map(renderRow).join(''));
         $('#js-page-info').text(`Hiển thị ${start + 1} - ${end} của ${allOrders.length}`);
     }
 
     function bindSearch() {
-        const initial = getParamFromUrl(KEYWORD_PARAM);
+        const initial = getParamFromUrl('keyword');
         if (initial !== null) $('#js-search-input').val(initial);
 
         $('#js-search-input').off('keydown.search').on('keydown.search', function (e) {
@@ -179,9 +166,9 @@
             const value = String($(this).val() || '').trim();
             const params = new URLSearchParams(window.location.search);
             if (value === '') {
-                params.delete(KEYWORD_PARAM);
+                params.delete('keyword');
             } else {
-                params.set(KEYWORD_PARAM, value);
+                params.set('keyword', value);
             }
             const qs = params.toString();
             window.location.href = window.location.pathname + (qs ? '?' + qs : '');
@@ -201,43 +188,36 @@
 
     function bindPageSelect() {
         $('#js-page-select').off('change.page').on('change.page', function () {
-            renderPage(parseInt($(this).val(), 10) || 1);
+            renderPage(parseInt($(this).val()));
         });
     }
 
     function bindDelete() {
         $('#js-order-tbody').off('click.delete').on('click.delete', '.js-order-delete', async function () {
-            const orderId = parseInt($(this).data('order-id'), 10);
-            if (!Number.isFinite(orderId) || orderId <= 0) return;
+            const orderId = parseInt($(this).data('order-id'));
 
-            const $btn = $(this).prop('disabled', true);
-            try {
-                await deleteBooking(orderId);
-                showToast('Xoá đơn hàng thành công', 'success');
-                setTimeout(() => window.location.reload(), 600);
-            } catch (err) {
-                console.error('FE-BOOK-005', err);
-                $btn.prop('disabled', false);
-            }
+            await deleteBooking(orderId);
+            alert('Xoá đơn hàng thành công');
+            window.location.reload();
         });
     }
 
     async function init() {
         const $tbody = $('#js-order-tbody');
-        bindUrlSelectFilter('#js-filter-status', STATUS_PARAM);
-        bindUrlSelectFilter('#js-filter-payment-status', PAYMENT_STATUS_PARAM);
-        bindUrlSelectFilter('#js-filter-payment-method', PAYMENT_METHOD_PARAM);
-        bindUrlSelectFilter('#js-filter-start-date', START_DATE_PARAM);
-        bindUrlSelectFilter('#js-filter-end-date', END_DATE_PARAM);
+        bindUrlSelectFilter('#js-filter-status', 'order-status');
+        bindUrlSelectFilter('#js-filter-payment-status', 'payment-status');
+        bindUrlSelectFilter('#js-filter-payment-method', 'payment-method');
+        bindUrlSelectFilter('#js-filter-start-date', 'start-date');
+        bindUrlSelectFilter('#js-filter-end-date', 'end-date');
         $('#js-clear-filters').off('click.clear').on('click.clear', function () {
             window.location.href = window.location.pathname;
         });
         try {
             const data = await fetchBookingList();
-            let orders = (data && data.orders) || [];
-            orders = applyIntFieldFilter(orders, STATUS_PARAM, 'OrderStatus');
-            orders = applyIntFieldFilter(orders, PAYMENT_STATUS_PARAM, 'PaymentStatus');
-            orders = applyStringFieldFilter(orders, PAYMENT_METHOD_PARAM, 'PaymentMethod');
+            let orders = data.orders || [];
+            orders = applyIntFieldFilter(orders, 'order-status', 'OrderStatus');
+            orders = applyIntFieldFilter(orders, 'payment-status', 'PaymentStatus');
+            orders = applyStringFieldFilter(orders, 'payment-method', 'PaymentMethod');
             orders = applyDateRangeFilter(orders, 'OrderDate');
             orders = applyKeywordFilter(orders);
             allOrders = orders;

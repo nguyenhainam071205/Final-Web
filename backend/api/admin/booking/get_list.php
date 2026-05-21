@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 require_once '../../../includes/response.php';
-require_once '../../../config/constants.php';
 require_once '../../../config/db.php';
 require_once '../../../includes/auth.php';
 require_once '../../../includes/db_order.php';
@@ -10,7 +9,7 @@ require_once '../../../includes/db_order.php';
 header('Access-Control-Allow-Origin: *');
 
 require_login();
-require_role(USER_ROLE_ADMIN);
+require_role('admin');
 
 try {
     $orders = order_get_list_admin($pdo);

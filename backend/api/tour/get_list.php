@@ -2,14 +2,10 @@
 declare(strict_types=1);
 
 require_once '../../includes/response.php';
-require_once '../../config/constants.php';
 require_once '../../config/db.php';
-require_once '../../includes/validator.php';
 require_once '../../includes/db_tour.php';
 
-header('Access-Control-Allow-Origin: *');
-
-$category_id = (int)($_GET['category_id'] ?? 0);
+$category_id = (int)($_GET['category_id']);
 
 try {
     $tours = tour_get_list($pdo, $category_id);

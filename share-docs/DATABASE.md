@@ -70,26 +70,28 @@
 | Column | Type | Constraints |
 |---|---|---|
 | OrderID | INT | PK, AUTO_INCREMENT |
+| ClientName | VARCHAR(255) | NOT NULL |
+| ClientPhone | VARCHAR(20) | NOT NULL |
+| ClientNote | TEXT | NULL |
 | PaymentMethod | VARCHAR(100) | NOT NULL |
 | OrderDate | DATETIME | NOT NULL, DEFAULT CURRENT_TIMESTAMP |
 | OrderStatus | ENUM('Pending','Confirmed','Cancelled','Completed') | NOT NULL, DEFAULT 'Pending' |
-| Note | TEXT | NULL |
 | TotalPrice | DECIMAL(10,2) | NOT NULL |
 | PaymentStatus | INT | NOT NULL, DEFAULT 0 (`0` = Unpaid, `1` = Paid, `2` = Refunded) |
 
 - Index: `idx_order_status` on `OrderStatus`
 
+> Khách không cần đăng nhập để đặt tour — `ClientName` / `ClientPhone` / `ClientNote` lấy trực tiếp từ form `#order-form` trên `cart.html`.
+
 **`BookedTour`** *(junction / line-item table)*
 | Column | Type | Constraints |
 |---|---|---|
-| UserID | INT | FK → User.UserID, NOT NULL |
 | TourID | INT | FK → Tour.TourID, NOT NULL |
 | OrderID | INT | FK → Order.OrderID, NOT NULL |
 | Quantity | INT | NOT NULL, DEFAULT 1 |
 | PriceAtBooking | DECIMAL(10,2) | NOT NULL |
 
-- **Composite PK:** `(UserID, TourID, OrderID)`
-- Index: `idx_bookedtour_userid` on `UserID`
+- **Composite PK:** `(TourID, OrderID)`
 - Index: `idx_bookedtour_tourid` on `TourID`
 - Index: `idx_bookedtour_orderid` on `OrderID`
 
@@ -125,7 +127,6 @@ erDiagram
     Category ||--o{ Category : "parent-child (ParentID)"
     Category ||--o{ Tour : "has many"
     Tour ||--o{ Tour_Image : "has many"
-    User ||--o{ BookedTour : "places"
     Tour ||--o{ BookedTour : "booked via"
     Order ||--o{ BookedTour : "contains"
 ```
@@ -134,7 +135,8 @@ erDiagram
 | From Feature | To Feature | Via Column | Description |
 |---|---|---|---|
 | Booking | Tour Catalog | `BookedTour.TourID` | Links a booking line-item to a tour |
-| Booking | User Management | `BookedTour.UserID` | Links a booking to the customer |
+
+> `User` chỉ phục vụ đăng nhập admin — không liên kết tới `Order` / `BookedTour`. Thông tin khách trên đơn lấy từ `Order.ClientName` / `ClientPhone` / `ClientNote`.
 
 ---
 
@@ -160,7 +162,7 @@ Must be followed to satisfy foreign key constraints:
 | 3 | `Order` | No foreign keys |
 | 4 | `Tour` | Depends on `Category` |
 | 5 | `Tour_Image` | Depends on `Tour` |
-| 6 | `BookedTour` | Depends on `User`, `Tour`, `Order` |
+| 6 | `BookedTour` | Depends on `Tour`, `Order` |
 
 ---
 

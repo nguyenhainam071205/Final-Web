@@ -1,39 +1,21 @@
 <?php
 declare(strict_types=1);
 
-/**
- * Returns tours whose TourStatus = 'Available'.
- * When $category_id is 0, returns all available tours regardless of category.
- *
- * @return array<int, array<string, mixed>>
- */
-function tour_get_list(PDO $pdo, int $category_id = 0): array
+function tour_get_list(PDO $pdo, int $category_id): array
 {
-    if ($category_id > 0) {
-        $stmt = $pdo->prepare(
-            "SELECT TourID, Title, Vehicle, Timeline, DeparturePlace,
-                    DepartureDate, Duration, CostPerPerson,
-                    TourThumbnail, TourStatus, MaxParticipants, CategoryID
-             FROM Tour
-             WHERE TourStatus = :status
-               AND CategoryID = :category_id
-             ORDER BY DepartureDate ASC"
-        );
-        $stmt->execute([
-            ':status'      => TOUR_STATUS_AVAILABLE,
-            ':category_id' => $category_id,
-        ]);
-    } else {
-        $stmt = $pdo->prepare(
-            "SELECT TourID, Title, Vehicle, Timeline, DeparturePlace,
-                    DepartureDate, Duration, CostPerPerson,
-                    TourThumbnail, TourStatus, MaxParticipants, CategoryID
-             FROM Tour
-             WHERE TourStatus = :status
-             ORDER BY DepartureDate ASC"
-        );
-        $stmt->execute([':status' => TOUR_STATUS_AVAILABLE]);
-    }
+    $stmt = $pdo->prepare(
+        "SELECT TourID, Title, Vehicle, Timeline, DeparturePlace,
+                DepartureDate, Duration, CostPerPerson,
+                TourThumbnail, TourStatus, MaxParticipants, CategoryID
+            FROM Tour
+            WHERE TourStatus = :status
+            AND CategoryID = :category_id
+            ORDER BY DepartureDate ASC"
+    );
+    $stmt->execute([
+        ':status'      => 'Available',
+        ':category_id' => $category_id,
+    ]);
 
     return $stmt->fetchAll();
 }
@@ -44,7 +26,7 @@ function tour_get_list(PDO $pdo, int $category_id = 0): array
  *
  * @return array<string, mixed>|null
  */
-function tour_get_by_id(PDO $pdo, int $tour_id): array|null
+function tour_get_by_id(PDO $pdo, int $tour_id): array
 {
     $stmt = $pdo->prepare(
         "SELECT t.TourID, t.Title, t.Vehicle, t.Timeline, t.TourSchedule, t.TourDescription,
@@ -56,14 +38,5 @@ function tour_get_by_id(PDO $pdo, int $tour_id): array|null
          WHERE t.TourID = :id"
     );
     $stmt->execute([':id' => $tour_id]);
-    $tour = $stmt->fetch();
-    if (!$tour) return null;
-
-    $stmt2 = $pdo->prepare(
-        "SELECT ImageID, Source FROM Tour_Image WHERE TourID = :id ORDER BY ImageID ASC"
-    );
-    $stmt2->execute([':id' => $tour_id]);
-    $tour['images'] = $stmt2->fetchAll();
-
-    return $tour;
+    return $stmt->fetch();
 }
