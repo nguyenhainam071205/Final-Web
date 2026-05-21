@@ -29,27 +29,29 @@ project/
 
 ---
 
-## 3. Backend — [`backend/`](../backend/)
+## 3. Backend — [`backend/`](backend/)
 
 ```
 backend/
-├── api/                    # Entry endpoints — public HTTP
-│   ├── tour/               # get_list.php, get_detail.php
-│   ├── booking/            # create.php
-│   ├── user/               # login.php
-│   └── admin/              # Endpoint cho admin panel
+├── api/                          # Entry endpoints — public HTTP
+│   ├── tour/                     # get_list.php, get_detail.php
+│   ├── booking/                  # create.php
+│   ├── user/                     # login.php
+│   └── admin/
+│       └── booking/              # get_list.php, update.php, delete.php
 ├── config/
-│   ├── db.php              # Khởi tạo PDO ($pdo)
-│   └── constants.php       # BASE_URL, ENUM values, ...
+│   └── db.php                    # Khởi tạo PDO ($pdo) + hằng số dùng chung
 ├── includes/
-│   ├── response.php        # json_success(), json_error()
-│   ├── auth.php            # Session check, role check
-│   ├── validator.php       # Validate input
-│   ├── db_tour.php         # tour_get_list(), tour_get_detail()
-│   ├── db_booking.php      # SQL cho booking
-│   ├── db_order.php        # SQL cho order
-│   └── db_user.php         # SQL cho user/auth
-└── docs/                   # BE-ARCHITECTURE.md
+│   ├── response.php              # json_success(), json_error()
+│   ├── auth.php                  # Session check, role check
+│   ├── db_tour.php               # tour_get_list(), tour_get_detail()
+│   ├── db_booking.php            # SQL cho booking (client + admin)
+│   ├── db_order.php              # SQL cho order
+│   └── db_user.php               # SQL cho user/auth
+├── docs/
+│   ├── BE-ARCHITECTURE.md
+│   └── BE-PROJECT-RULES.md
+└── CLAUDE.md
 ```
 
 **Quy tắc tầng BE:**
@@ -67,20 +69,22 @@ backend/
 |---|---|---|
 | `api/tour/get_list.php` | GET | Danh sách tour (lọc theo `category_id`) |
 | `api/tour/get_detail.php` | GET | Chi tiết 1 tour theo `tour_id` |
-| `api/booking/create.php` | POST | Tạo booking |
+| `api/booking/create.php` | POST | Tạo booking từ client |
 | `api/user/login.php` | POST | Đăng nhập user/admin |
+| `api/admin/booking/get_list.php` | GET | Danh sách booking cho admin |
+| `api/admin/booking/update.php` | POST | Cập nhật trạng thái booking |
+| `api/admin/booking/delete.php` | POST | Xoá booking |
 
 ---
 
-## 4. Frontend — [`frontend/`](../frontend/)
+## 4. Frontend — [`frontend/`](frontend/)
 
 ```
 frontend/
 ├── client/                       # Trang public
 │   ├── index.html                # Trang chủ — list tour
 │   ├── tour-detail.html          # Chi tiết tour
-│   ├── cart.html                 # Giỏ hàng / booking
-│   └── login.html                # Đăng nhập user
+│   └── cart.html                 # Giỏ hàng / booking
 │
 ├── admin/                        # Trang admin
 │   ├── login.html
@@ -90,31 +94,38 @@ frontend/
 │
 ├── assets/
 │   ├── client/
-│   │   ├── css/                  # style-1.css, login.css
+│   │   ├── css/                  # style-1.css
 │   │   ├── images/               # Ảnh tour, banner, icon
 │   │   └── js/
 │   │       ├── api/              # Layer AJAX — không động DOM
 │   │       │   ├── tour.api.js
-│   │       │   ├── booking.api.js
-│   │       │   └── user.api.js
+│   │       │   └── booking.api.js
 │   │       ├── components/       # Render layer — HTML string + bind event
 │   │       │   └── tour-card.js
 │   │       ├── pages/            # Orchestrator — 1 file / 1 trang
 │   │       │   ├── tour-list.js
 │   │       │   ├── tour-detail.js
-│   │       │   ├── cart.js
-│   │       │   └── login.js
+│   │       │   └── cart.js
 │   │       ├── utils/            # Helper thuần
 │   │       │   ├── http.js       # handleRequest()
-│   │       │   ├── auth.js       # getSession(), redirectIfNotLoggedIn()
 │   │       │   ├── format.js     # formatPrice(), formatDate()
-│   │       │   ├── toast.js      # showToast()
 │   │       │   └── cart.js       # LocalStorage cart helpers
 │   │       └── script.js         # Global handler
 │   │
-│   └── admin/                    # Asset riêng cho admin
+│   └── admin/
+│       ├── css/                  # style.css
+│       ├── images/               # Ảnh dùng cho admin panel
+│       └── js/
+│           ├── api/              # booking.api.js, user.api.js
+│           ├── components/       # sider.js (sidebar admin)
+│           ├── pages/            # login.js, dashboard.js,
+│           │                     # order-management.js, order-changing.js
+│           └── utils/            # http.js, format.js
 │
-└── docs/                         # FE-ARCHITECTURE.md, FE-PROJECT-RULES.md
+├── docs/
+│   ├── FE-ARCHITECTURE.md
+│   └── FE-PROJECT-RULES.md
+└── CLAUDE.md
 ```
 
 **Quy tắc tầng FE:**
@@ -239,13 +250,15 @@ Xử lý tập trung trong `utils/http.js`:
 
 | File | Nội dung |
 |---|---|
-| [`frontend/CLAUDE.md`](../frontend/CLAUDE.md) | Tech stack FE, layer rules, naming, error code |
-| [`backend/CLAUDE.md`](../backend/CLAUDE.md) | Tech stack BE, layer rules, endpoint contract |
-| [`frontend/docs/FE-ARCHITECTURE.md`](../frontend/docs/FE-ARCHITECTURE.md) | Sơ đồ layer FE, cross-page comm, data flow |
-| [`frontend/docs/FE-PROJECT-RULES.md`](../frontend/docs/FE-PROJECT-RULES.md) | Naming, code pattern, anti-pattern, git workflow |
-| [`backend/docs/BE-ARCHITECTURE.md`](../backend/docs/BE-ARCHITECTURE.md) | Endpoint list, request/response shape, auth flow |
-| [`share-docs/DATABASE.md`](../share-docs/DATABASE.md) | Schema toàn bộ bảng — **field PascalCase, dùng đúng tên cột** |
-| [`feature/FEATURE-TOUR-LIST.md`](./FEATURE-TOUR-LIST.md) | Ví dụ chi tiết 1 feature đầy đủ FE + BE |
+| [`frontend/CLAUDE.md`](frontend/CLAUDE.md) | Tech stack FE, layer rules, naming, error code |
+| [`backend/CLAUDE.md`](backend/CLAUDE.md) | Tech stack BE, layer rules, endpoint contract |
+| [`frontend/docs/FE-ARCHITECTURE.md`](frontend/docs/FE-ARCHITECTURE.md) | Sơ đồ layer FE, cross-page comm, data flow |
+| [`frontend/docs/FE-PROJECT-RULES.md`](frontend/docs/FE-PROJECT-RULES.md) | Naming, code pattern, anti-pattern, git workflow |
+| [`backend/docs/BE-ARCHITECTURE.md`](backend/docs/BE-ARCHITECTURE.md) | Endpoint list, request/response shape, auth flow |
+| [`backend/docs/BE-PROJECT-RULES.md`](backend/docs/BE-PROJECT-RULES.md) | Naming, layer rules, anti-pattern phía BE |
+| [`share-docs/DATABASE.md`](share-docs/DATABASE.md) | Schema toàn bộ bảng — **field PascalCase, dùng đúng tên cột** |
+| [`feature/PROJECT-STRUCTURE.md`](feature/PROJECT-STRUCTURE.md) | Mô tả chi tiết cấu trúc thư mục |
+| [`feature/FEATURE-TOUR-LIST.md`](feature/FEATURE-TOUR-LIST.md) | Ví dụ chi tiết 1 feature đầy đủ FE + BE |
 
 ---
 
