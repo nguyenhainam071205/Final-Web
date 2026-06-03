@@ -25,47 +25,6 @@ function order_create(
     return (int)$pdo->lastInsertId();
 }
 
-/**
- * Idempotently flips Order.PaymentStatus from 0 → 1. Returns true if a row was changed.
- */
-function order_mark_paid_by_id(PDO $pdo, int $order_id): bool
-{
-    $stmt = $pdo->prepare(
-        "UPDATE `order` SET PaymentStatus = 1
-         WHERE OrderID = :id AND PaymentStatus = 0"
-    );
-    $stmt->execute([':id' => $order_id]);
-    return $stmt->rowCount() > 0;
-}
-
-/**
- * Returns OrderID + PaymentMethod + PaymentStatus + total price
- * (sum of Quantity * PriceAtBooking) for one order, or null if missing.
- *
- * @return array{OrderID:int, PaymentMethod:string, PaymentStatus:int, TotalPrice:float, ClientPhone:string}|null
- */
-function order_get_for_payment(PDO $pdo, int $order_id): ?array
-{
-    $stmt = $pdo->prepare(
-        "SELECT  o.OrderID, o.PaymentMethod, o.PaymentStatus, o.ClientPhone,
-                 SUM(bt.Quantity * bt.PriceAtBooking) AS TotalPrice
-         FROM    `order` o
-         JOIN    bookedtour bt ON bt.OrderID = o.OrderID
-         WHERE   o.OrderID = :id
-         GROUP BY o.OrderID"
-    );
-    $stmt->execute([':id' => $order_id]);
-    $row = $stmt->fetch();
-    if (!$row) return null;
-    return [
-        'OrderID'       => (int)$row['OrderID'],
-        'PaymentMethod' => (string)$row['PaymentMethod'],
-        'PaymentStatus' => (int)$row['PaymentStatus'],
-        'TotalPrice'    => (float)$row['TotalPrice'],
-        'ClientPhone'   => (string)$row['ClientPhone'],
-    ];
-}
-
 function order_get_list_admin(PDO $pdo): array
 {
     $sql = "
@@ -79,12 +38,6 @@ function order_get_list_admin(PDO $pdo): array
         ORDER BY o.OrderDate DESC, o.OrderID DESC, t.TourID ASC
     ";
     $rows = $pdo->query($sql)->fetchAll();
-
-    // [
-    //     ["OrderID" => 5, "TourID" => 1, "Title" => "Tour Đà Nẵng",   "Quantity" => 2, "PriceAtBooking" => 1000],
-    //     ["OrderID" => 5, "TourID" => 3, "Title" => "Tour Phú Quốc",  "Quantity" => 1, "PriceAtBooking" => 2000],
-    //     ["OrderID" => 7, "TourID" => 2, "Title" => "Tour Sapa",      "Quantity" => 4, "PriceAtBooking" => 500]
-    // ];
 
     $orders = [];
     foreach ($rows as $r) {
@@ -114,18 +67,6 @@ function order_get_list_admin(PDO $pdo): array
         ];
     }
 
-    // 5 => [
-    //     'OrderID' => 5,
-    //     'PaymentMethod' => 'bank',
-    //     'OrderDate' => 'fsadfasdf',
-    //     'OrderStatus' => 1,
-    //      ...
-    //     'tours' => [
-    //         0 => ['TourID' => 1, 'Title' => 'asdfasdfa', 'Quantity' => 2, 'PriceAtBooking' => 1000]
-    //         1 => ['TourID' => 3, ...]
-    //         ...
-    //     ]
-    // ],
     return array_values($orders);
 }
 
@@ -142,9 +83,6 @@ function order_delete(PDO $pdo, int $order_id): void
     $stmt->execute([':id' => $order_id]);
 }
 
-/**
- * Updates editable fields on an existing order. Caller must verify existence first.
- */
 function order_update_admin(
     PDO $pdo,
     int $order_id,

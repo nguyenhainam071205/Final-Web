@@ -9,15 +9,18 @@ require_once '../../includes/db_booking.php';
 
 header('Access-Control-Allow-Origin: *');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    json_error('Method not allowed', 405);
-}
+// $_POST = [
+//  'items' => [['tour_id' => '1', 'quantity' => '2'], ['tour_id' => '2', 'quantity' => '3']],
+//  'client_name' => 'fjksldjfls',
+//  'client_phone' => '12312',
+//  'payment_method' => 'bank', 
+//]
 
-$client_name    = trim((string)($_POST['client_name'] ?? ''));
-$client_phone   = trim((string)($_POST['client_phone'] ?? ''));
+$client_name    = trim((string)($_POST['client_name']));
+$client_phone   = trim((string)($_POST['client_phone']));
 $client_note    = isset($_POST['client_note']) ? trim((string)$_POST['client_note']) : null;
 $payment_method = trim((string)($_POST['payment_method'] ?? ''));
-$items_raw      = $_POST['items'] ?? [];
+$items_raw      = $_POST['items'];
 
 if ($client_name === '') {
     json_error('Vui lòng nhập họ tên', 422);
@@ -35,8 +38,8 @@ if (!is_array($items_raw) || count($items_raw) === 0) {
 $items = [];
 foreach ($items_raw as $it) {
     $items[] = [
-        'tour_id'  => (int)($it['tour_id']  ?? 0),
-        'quantity' => (int)($it['quantity'] ?? 0),
+        'tour_id'  => (int)($it['tour_id']),
+        'quantity' => (int)($it['quantity']),
     ];
 }
 

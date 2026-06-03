@@ -1,17 +1,5 @@
-// AJAX layer for the Booking feature — admin bundle.
-
 async function fetchBookingList() {
     return handleRequest('GET', '/admin/booking/get_list.php');
-    // "order": [
-    //     {
-    //         "OrderID": 5,
-    //         ....
-    //         "tours": [
-    //             {tourID: 1, ...}
-    //             ...
-    //         ]
-    //     }
-    // ]
 }
 
 async function updateBooking(payload) {

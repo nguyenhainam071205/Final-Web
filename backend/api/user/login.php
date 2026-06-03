@@ -8,12 +8,8 @@ require_once '../../includes/auth.php';
 
 header('Access-Control-Allow-Origin: *');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    json_error('Method not allowed', 405);
-}
-
-$email    = trim((string)($_POST['email'] ?? ''));
-$password = (string)($_POST['password'] ?? '');
+$email    = trim((string)($_POST['email']));
+$password = (string)($_POST['password']);
 
 try {
     $user = user_find_by_email($pdo, $email);

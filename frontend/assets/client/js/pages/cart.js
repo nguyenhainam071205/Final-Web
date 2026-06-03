@@ -1,6 +1,3 @@
-// Orchestrator for cart.html — reads cart from localStorage, fetches each
-// tour, renders rows, computes totals.
-
 function renderCartItem(tour, quantity) {
     const tourCode = String(tour.TourID).padStart(9, '0');
     const thumb = tour.TourThumbnail;
@@ -66,7 +63,7 @@ async function initCart() {
     const rows = await Promise.all(
         items.map(it => fetchTourDetail(it.TourID).then(r => ({
             tour: r.tour,
-            quantity: it.quantity,
+            quantity: it.quantity
         })))
     );
 
@@ -114,7 +111,7 @@ function bindOrderSubmit() {
         localStorage.removeItem('cart');
 
         alert('Đặt tour thành công');
-        setTimeout(() => { window.location.href = 'index.html'; }, 1200);
+        window.location.href = 'index.html';
     });
 }
 

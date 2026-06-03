@@ -92,6 +92,7 @@
         return raw === null || raw === '' ? null : raw;
     }
 
+    // bindUrlSelectFilter('#js-filter-status', 'order-status');
     function bindUrlSelectFilter(selectId, paramName) {
         const initial = getParamFromUrl(paramName);
         if (initial !== null) $(selectId).val(initial);
@@ -109,6 +110,7 @@
         });
     }
 
+    // applyIntFieldFilter(orders, 'order-status', 'OrderStatus');
     function applyIntFieldFilter(orders, paramName, field) {
         const filter = getParamFromUrl(paramName);
         if (filter === null) return orders;
@@ -163,7 +165,7 @@
         $('#js-search-input').off('keydown.search').on('keydown.search', function (e) {
             if (e.key !== 'Enter') return;
             e.preventDefault();
-            const value = String($(this).val() || '').trim();
+            const value = String($(this).val()).trim();
             const params = new URLSearchParams(window.location.search);
             if (value === '') {
                 params.delete('keyword');
@@ -214,7 +216,7 @@
         });
         try {
             const data = await fetchBookingList();
-            let orders = data.orders || [];
+            let orders = data.orders;
             orders = applyIntFieldFilter(orders, 'order-status', 'OrderStatus');
             orders = applyIntFieldFilter(orders, 'payment-status', 'PaymentStatus');
             orders = applyStringFieldFilter(orders, 'payment-method', 'PaymentMethod');

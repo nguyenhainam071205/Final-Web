@@ -27,9 +27,6 @@ function is_logged_in(): bool
     return isset($_SESSION['currentUser']);
 }
 
-/**
- * @return array<string, mixed>|null
- */
 function auth_get_current_user(): array|null
 {
     auth_start_session();
@@ -48,7 +45,7 @@ function require_role(string $role): void
 {
     require_login();
     $current = auth_get_current_user();
-    if (($current['role'] ?? null) !== $role) {
+    if (($current['role']) !== $role) {
         error_log('BE-AUTH-002 require_role: expected ' . $role);
         json_error('Forbidden', 403);
     }

@@ -1,6 +1,5 @@
 function formatPrice(price) {
     const num = typeof price === 'string' ? parseFloat(price) : price;
-    if (isNaN(num)) return '0';
     return num.toLocaleString('vi-VN', {
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,

@@ -26,7 +26,7 @@ $(function () {
                 showError('Bạn không có quyền truy cập');
                 return;
             }
-            window.location.href = 'dashboard.html';
+            window.location.href = 'order-management.html';
         } catch (err) {
             const message = err.responseJSON?.message ?? 'Đăng nhập thất bại';
             showError(message);

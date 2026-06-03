@@ -12,38 +12,38 @@ function renderTourCard(tour) {
     const detailUrl = `tour-detail.html?tour_id=${tour.TourID}`;
 
     return `
-<div class="product-item">
-    <div class="inner-image">
-        <a href="${detailUrl}"><img src="${thumbnail}" alt="${tour.Title}"></a>
-    </div>
-    <div class="inner-content">
-        <h3 class="inner-address">
-            <a href="${detailUrl}">${tour.Title}</a>
-        </h3>
-        <div class="inner-price">
-            <div class="inner-new-price">
-                <span class="price">${price}</span><span class="unit">đ</span>
+        <div class="product-item">
+            <div class="inner-image">
+                <a href="${detailUrl}"><img src="${thumbnail}" alt="${tour.Title}"></a>
             </div>
-        </div>
-        <div class="inner-description">
-            <div class="inner-desc-item">Mã Tour: <b>${tourCode}</b></div>
-            <div class="inner-desc-item">Ngày Khởi Hành: <b>${date}</b></div>
-            <div class="inner-desc-item">Thời Gian: <b>${duration}</b></div>
-        </div>
-        <div class="inner-rating">
-            <div class="inner-rating-stars">
-                <div class="inner-stars">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
+            <div class="inner-content">
+                <h3 class="inner-address">
+                    <a href="${detailUrl}">${tour.Title}</a>
+                </h3>
+                <div class="inner-price">
+                    <div class="inner-new-price">
+                        <span class="price">${price}</span><span class="unit">đ</span>
+                    </div>
                 </div>
-                <div class="inner-number">(5)</div>
+                <div class="inner-description">
+                    <div class="inner-desc-item">Mã Tour: <b>${tourCode}</b></div>
+                    <div class="inner-desc-item">Ngày Khởi Hành: <b>${date}</b></div>
+                    <div class="inner-desc-item">Thời Gian: <b>${duration}</b></div>
+                </div>
+                <div class="inner-rating">
+                    <div class="inner-rating-stars">
+                        <div class="inner-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="inner-number">(5)</div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>`;
+        </div>`;
 }
 
 /**

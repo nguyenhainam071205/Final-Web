@@ -17,15 +17,9 @@ function tour_get_list(PDO $pdo, int $category_id): array
         ':category_id' => $category_id,
     ]);
 
-    return $stmt->fetchAll();
+    return $stmt->fetchAll(); 
 }
 
-/**
- * Returns a single tour with its images and category name.
- * Returns null if the tour does not exist.
- *
- * @return array<string, mixed>|null
- */
 function tour_get_by_id(PDO $pdo, int $tour_id): array
 {
     $stmt = $pdo->prepare(
