@@ -1,9 +1,15 @@
-CREATE DATABASE dbms;
-USE dbms;
+
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
+CREATE DATABASE dbms;
+USE dbms;
 
 CREATE TABLE `bookedtour` (
   `TourID` int(11) NOT NULL,
@@ -12,6 +18,9 @@ CREATE TABLE `bookedtour` (
   `PriceAtBooking` decimal(18,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `bookedtour`
+--
 
 INSERT INTO `bookedtour` (`TourID`, `OrderID`, `Quantity`, `PriceAtBooking`) VALUES
 (1, 21, 1, 4500000.00),
@@ -20,6 +29,12 @@ INSERT INTO `bookedtour` (`TourID`, `OrderID`, `Quantity`, `PriceAtBooking`) VAL
 (3, 24, 1, 3850000.00),
 (6, 23, 1, 35000000.00),
 (8, 24, 1, 8900000.00);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
 
 CREATE TABLE `category` (
   `CategoryID` int(11) NOT NULL,
@@ -31,10 +46,19 @@ CREATE TABLE `category` (
   `ParentID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `category`
+--
 
 INSERT INTO `category` (`CategoryID`, `Name`, `CategoryThumbnail`, `CategoryStatus`, `Description`, `Location`, `ParentID`) VALUES
 (1, 'Du lịch Trong Nước', 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1000', 0, 'Khám phá vẻ đẹp Việt Nam', 'Việt Nam', NULL),
 (2, 'Du lịch Nước Ngoài', 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1000', 0, 'Trải nghiệm thế giới', 'Quốc tế', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order`
+--
 
 CREATE TABLE `order` (
   `OrderID` int(11) NOT NULL,
@@ -48,12 +72,21 @@ CREATE TABLE `order` (
   `clientNote` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `order`
+--
 
 INSERT INTO `order` (`OrderID`, `PaymentMethod`, `OrderDate`, `OrderStatus`, `Note`, `PaymentStatus`, `clientName`, `clientPhone`, `clientNote`) VALUES
 (21, 'cash', '2026-05-18 15:59:15', 0, NULL, 0, 'Nguyễn Hải Nam', '0705016997', '123'),
 (22, 'cash', '2026-05-20 21:31:51', 1, NULL, 0, 'Nguyễn Hải Nam', '0705016997', 'fdasdfa'),
 (23, 'bank', '2026-05-20 21:32:27', 2, NULL, 1, 'Nguyễn Hải Nam', '0705016997', '123'),
 (24, 'cash', '2026-05-22 01:08:29', 1, NULL, 0, 'Nam Nguyen', '0705016997', 'sadASD');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tour`
+--
 
 CREATE TABLE `tour` (
   `TourID` int(11) NOT NULL,
