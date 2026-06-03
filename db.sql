@@ -1,19 +1,35 @@
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
+-- Host: 127.0.0.1
+-- Generation Time: Jun 03, 2026 at 11:02 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
+
+CREATE DATABASE dbms;
+USE dbms;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-CREATE DATABASE dbms;
-USE dbms;
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `dbms`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bookedtour`
+--
 
 CREATE TABLE `bookedtour` (
   `TourID` int(11) NOT NULL,
